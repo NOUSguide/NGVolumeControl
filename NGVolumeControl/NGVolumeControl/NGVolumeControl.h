@@ -29,6 +29,9 @@
 /** The height of the expanded volume slider */
 @property (nonatomic, assign) CGFloat sliderHeight UI_APPEARANCE_SELECTOR;
 
+/** The width of the expanded volume slider background view */
+@property (nonatomic, assign) CGFloat sliderBackgroundWidth;
+
 /** The color of the slider track below the current value, defaults to white */
 @property (nonatomic, strong) UIColor *minimumTrackColor UI_APPEARANCE_SELECTOR;
 /** The color of the slider track above the current value, defaults to gray */
