@@ -1,3 +1,5 @@
+#import <MediaPlayer/MediaPlayer.h>
+
 #import "NGVolumeControl.h"
 #import "NGGeometryFunctions.h"
 #import "NGVolumeControl+NGCustomize.h"
@@ -390,7 +392,7 @@ static MPVolumeView *ng_volumeView = nil;
 ////////////////////////////////////////////////////////////////////////
 
 - (void)setSystemVolume:(float)systemVolume {
-    MPMusicPlayerController *musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    MPMusicPlayerController *musicPlayer = [MPMusicPlayerController systemMusicPlayer];
     
     if ([self.volumeDelegate respondsToSelector:@selector(volumeControl:didChangeOldVolume:toNewVolume:)]) {
         [self.volumeDelegate volumeControl:self didChangeOldVolume:musicPlayer.volume toNewVolume:systemVolume];
@@ -398,11 +400,45 @@ static MPVolumeView *ng_volumeView = nil;
     
     musicPlayer.volume = systemVolume;
     self.currentSystemVolume = systemVolume;
+
+    // TODO: Replace with new version below
+//    MPVolumeView *volumeView = [[MPVolumeView alloc] init];
+//    UISlider *volumeViewSlider = nil;
+//
+//    for (UIView *view in volumeView.subviews) {
+//        if ([view isKindOfClass:[UISlider class]]) {
+//            volumeViewSlider = (UISlider *)view;
+//            break;
+//        }
+//    }
+//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        if ([self.volumeDelegate respondsToSelector:@selector(volumeControl:didChangeOldVolume:toNewVolume:)]) {
+//            [self.volumeDelegate volumeControl:self didChangeOldVolume:volumeViewSlider.value toNewVolume:systemVolume];
+//        }
+//
+//        volumeViewSlider.value = systemVolume;
+//    });
+//
+//    self.currentSystemVolume = systemVolume;
 }
 
 - (float)systemVolume {
-    MPMusicPlayerController *musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    MPMusicPlayerController *musicPlayer = [MPMusicPlayerController systemMusicPlayer];
     return musicPlayer.volume;
+
+    // TODO: Replace with new version below
+//    MPVolumeView *volumeView = [[MPVolumeView alloc] init];
+//    UISlider *volumeViewSlider = nil;
+//
+//    for (UIView *view in volumeView.subviews) {
+//        if ([view isKindOfClass:[UISlider class]]) {
+//            volumeViewSlider = (UISlider *)view;
+//            break;
+//        }
+//    }
+//
+//    return volumeViewSlider.value;
 }
 
 - (CGAffineTransform)transformForExpandDirection:(NGVolumeControlExpandDirection)expandDirection {
